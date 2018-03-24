@@ -10,14 +10,35 @@
 #define SPI_SS_PIN            4
 #define SPI_RST_PIN           5
 
+// Touch screen (SPI)
+#define TOUCH_SC_SPI_SCK      0
+
+// Buttons
+#define BTN_PLUS_PIN          10
+#define BTN_ACTION_PIN        5
+#define BTN_MOINS_PIN         16
+
+// RGB LED
+#define LED_R_PIN             12
+#define LED_G_PIN             15
+#define LED_B_PIN             13
+
+// Square screen (I2C)
+#define SQUARE_SC_RESET_PIN     4
+#define SQUARE_SC_ADDR          0x3C
+#define SQUARE_SC_W             128
+#define SQUARE_SC_H             96
+
+// Long screen (I2C)
+#define LONG_SC_RESET_PIN      4
+#define LONG_SC_ADDR           0x3C
+#define LONG_SC_W              128
+#define LONG_SC_H              32
+
 // Bootloader
 void bootloader_init(void);
 void bootloader_main(void);
 
-// Web Server
-void web_server_init(void);
-void web_server_main(void);
-String getContentType(String filename);
-bool handle_file_read(String path);
-bool handle_clear_picc(void);
-bool handle_ask_updates(void);
+// Web
+void web_init(void);
+void web_main(void);

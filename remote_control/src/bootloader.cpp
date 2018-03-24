@@ -32,7 +32,6 @@ void bootloader_init(void)
       type = "filesystem";
 
     // if updating SPIFFS this would be the place to unmount SPIFFS using SPIFFS.end()
-    file_sys_end();
     Serial.println("[bootloader.cpp] Start updating " + type);
   });
 
