@@ -1,0 +1,5 @@
+Change lines 90 to 92 in file \Documents\Arduino\libraries\TFT_eSPI-master\User_Setup.h to this :
+
+#define TFT_CS   PIN_D8  // Chip select control pin D8
+#define TFT_DC   PIN_D4  // Data Command control pin
+#define TFT_RST  -1      // Reset pin (could connect to NodeMCU RST, see next line)
