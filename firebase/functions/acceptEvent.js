@@ -1,5 +1,15 @@
 const functions = require('firebase-functions')
 
+const database = require('./database').database
+
 exports.default = functions.https.onRequest((request, response) => {
-  response.send('Hello from Firebase!')
+  const {idUser, idEvent} = request.query
+  const updates = {}
+  updates[idUser] = true
+  return database
+    .ref('/events/'+idEvent+'/participants/')
+    .update(updates)
+    .then(() => {
+      return response.send("OK")
+    })
 })

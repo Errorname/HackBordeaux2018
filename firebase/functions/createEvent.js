@@ -6,10 +6,12 @@ exports.default = functions.https.onRequest((request, response) => {
   return database
     .ref('/events')
     .push({
-      name: 'Test',
-      owner: 'thibaud',
-      comment: 'This is a test',
-      timestamp: Date.now()
+      type: request.query.type,
+      owner: request.query.user,
+      location: request.query.loc,
+      comment: request.query.comm || "",
+      timestamp: request.query.time,
+      createdAt: Date.now()
     })
     .then(snapshot => {
       return response.json(snapshot)
