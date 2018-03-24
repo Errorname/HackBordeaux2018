@@ -11,11 +11,11 @@ exports.default = functions.https.onRequest((request, response) => {
   }
 
   return database
-    .ref(`events/${userId}`)
-    .set({
+    .ref(`users/${userId}`)
+    .update({
       mood: mood
     })
     .then(snapshot => {
-      return response.json(snapshot)
+      return response.send('Mood updated')
     })
 })
