@@ -1,0 +1,104 @@
+<!doctype html>
+<html>
+	<head>
+		<title>Dashboard</title>
+
+		<meta charset="utf-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+
+		<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
+
+		<script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+		<script defer src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+		<script defer src="https://gstatic.com/firebasejs/4.2.0/firebase.js"></script>
+		<script defer src="https://unpkg.com/vuefire/dist/vuefire.js"></script>
+		<script defer src="https://cdn.jsdelivr.net/npm/lodash@4.17.5/lodash.min.js"></script>
+		<script defer src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.21.0/moment.min.js"></script>
+		<script defer src="app.js"></script>
+
+		<style>
+			body {
+				width:100%;
+				height: 100%;
+			}
+
+			.events {
+				display: flex;
+				width: 100%;
+			}
+
+			.events .event {
+				flex: 1;
+			}
+
+			.events .event + .event {
+				margin-left: 1rem;
+			}
+
+			.events .event .content .icon {
+				width: 1rem;
+				margin-right: 0.2rem;
+			}
+
+			[v-cloak] {
+				display: none
+			}
+		</style>
+	</head>
+	<body>
+		<div class="section" id="app">
+      <div class="tile is-ancestor">
+				<div class="tile is-9">
+					<div class="tile is-parent is-vertical" style="padding-top: 0;">
+						<div class="tile">
+							<div class="container is-fluid" style="width: 100%">
+								<h4 class="title is-4">Featured events</h4>
+								<div class="events">
+									<div class="card event" v-cloak v-for="event in featuredEvents">
+										<header class="card-header">
+											<p class="card-header-title">
+												{{event.type}}
+											</p>
+											<span class="card-header-icon">
+												<i class="fas fa-users" style="margin-right: 10px"></i>{{participants(event)}}
+											</span>
+										</header>
+										<div class="card-content">
+											<div class="content">
+												<span class="icon"><i class="fas fa-clock"></i></span> {{moment.unix(event.timestamp).fromNow()}}<br/>
+												<span class="icon"><i class="fas fa-map-marker"></i></span> {{event.location}}<br/>
+												<span class="icon"><i class="fas fa-sticky-note"></i></span> {{event.comment}}
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="tile" style="margin-top: 1rem">
+							<div class="container is-fluid" style="width: 100%">
+								<h4 class="title is-4">Next events</h4>
+								<span v-cloak v-for="event in nextEvents">{{event.type}}</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="tile is-3">
+					<div style="width: 100%">
+						<h4 class="title is-4">Awesome people</h4>
+						<div class="media" v-cloak v-for="user in users">
+							<div class="media-left">
+								<figure class="image is-48x48">
+									<img :src="user.picture" alt="Placeholder image">
+								</figure>
+							</div>
+							<div class="media-content" style="overflow: hidden">
+								<p class="title is-4">{{user.name}}</p>
+								<p class="subtitle is-6"><i class="far fa-comment"></i> {{user.mood.type}} <i class="has-text-grey is-size-7 is-pulled-right">{{user.mood.comment}}</i></p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
