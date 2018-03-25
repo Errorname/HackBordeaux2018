@@ -1,0 +1,152 @@
+<!doctype html>
+<html>
+	<head>
+		<title>Dashboard</title>
+
+		<meta charset="utf-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+
+		<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
+
+		<script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+		<script defer src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+		<script defer src="https://gstatic.com/firebasejs/4.2.0/firebase.js"></script>
+		<script defer src="https://unpkg.com/vuefire/dist/vuefire.js"></script>
+		<script defer src="https://cdn.jsdelivr.net/npm/lodash@4.17.5/lodash.min.js"></script>
+		<script defer src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.21.0/moment.min.js"></script>
+		<script defer src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+		<script defer src="app.js"></script>
+
+		<style>
+			html {
+				overflow: auto
+			}
+
+			body {
+				width:100%;
+				height: 100%;
+			}
+
+			.events {
+				display: flex;
+				flex-wrap: wrap;
+				width: 100%;
+			}
+
+			.events .event {
+				flex: 1 0 30%;
+				margin: 0.5rem;
+				max-width: 30%;
+			}
+
+			@media screen and (max-width: 600px) {
+				.events .event {
+					max-width: none;
+					flex: 1 0 100%;
+				}
+			}
+
+			.events .event .content .icon {
+				width: 1rem;
+				margin-right: 0.2rem;
+			}
+
+			[v-cloak] {
+				display: none
+			}
+
+			.capitalize {
+				text-transform: capitalize;
+			}
+
+			.flash {
+				-webkit-animation-name: flash-animation;
+				-webkit-animation-duration: 5s;
+
+				animation-name: flash-animation;
+				animation-duration: 5s;
+			}
+
+			@-webkit-keyframes flash-animation {
+				from { background: lightgrey; }
+				to   { background: white; }
+			}
+
+			@keyframes flash-animation {
+				from { background: lightgrey; }
+				to   { background: white; }
+			}
+		</style>
+	</head>
+	<body>
+		<h1 class="title is-1" style="text-align: center; margin-top: 10px; margin-bottom: 0;">Moody 😊</h1>
+		<div class="section" id="app">
+      <div class="tile is-ancestor">
+				<div class="tile is-9">
+					<div class="tile is-parent is-vertical" style="padding-top: 0;">
+						<div class="tile">
+							<div class="container is-fluid" style="width: 100%">
+								<h4 class="title is-4">Popular events</h4>
+								<div class="events">
+									<my-event v-cloak v-for="event in popularEvents" :key="event.id" :event="event"/>
+								</div>
+							</div>
+						</div>
+						<div class="tile" style="margin-top: 1rem">
+							<div class="container is-fluid" style="width: 100%">
+								<h4 class="title is-4">Next events</h4>
+								<div class="events">
+									<my-event v-cloak v-for="event in nextEvents" :key="event.id" :event="event"/>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="tile is-3">
+					<div style="width: 100%">
+						<h4 class="title is-4">Awesome people</h4>
+						<my-user v-cloak v-for="user in users" :key="user.id" :user="user"/>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<template id="event">
+			<div class="card event">
+				<header class="card-header">
+					<p class="card-header-title">
+						{{event.type}}
+					</p>
+					<span class="card-header-icon">
+						<i class="fas fa-users" style="margin-right: 10px"></i>{{participants(event)}}
+					</span>
+				</header>
+				<div class="card-content">
+					<div class="content">
+						<span class="icon"><i class="fas fa-user"></i></span> {{_.capitalize(event.owner)}}<br/>
+						<span class="icon"><i class="fas fa-clock"></i></span> {{moment(event.timestamp*1000).fromNow()}}<br/>
+						<span class="icon"><i class="fas fa-map-marker"></i></span> {{event.location}}
+						<span v-if="event.comment"><br/><span class="icon"><i class="fas fa-sticky-note"></i></span> {{event.comment}}</span>
+					</div>
+				</div>
+			</div>
+		</template>
+
+		<template id="user">
+			<div class="media">
+				<div class="media-left">
+					<figure class="image is-48x48">
+						<img :src="user.picture" alt="Placeholder image">
+					</figure>
+				</div>
+				<div class="media-content" style="overflow: hidden">
+					<p class="title is-4">{{user.name}}</p>
+					<p class="subtitle is-6" style="display: flex; align-items: center; justify-content: space-between;">
+						<span class="capitalize"><i class="far fa-comment"></i> {{user.mood.type}}</span>
+						<span><i class="has-text-grey is-size-7">{{_.capitalize(user.mood.comment)}}</i></span>
+					</p>
+				</div>
+			</div>
+		</template>
+	</body>
+</html>
