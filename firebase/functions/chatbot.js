@@ -41,7 +41,17 @@ exports.default = functions.https.onRequest((request, response) => {
         timestamp: time,
         createdAt: Math.floor(Date.now() / 1000)
       })
-      .then(snapshot => response.json(snapshot))
+      .then(snapshot =>
+        response.json({
+          speech: "Okay, I'm sending everyone a notification!",
+          displayText: "Okay, I'm sending everyone a notification!",
+          messages: {},
+          data: {},
+          contextOut: [],
+          source: '',
+          followupEvent: {}
+        })
+      )
   } else if (params['mood']) {
     // Update a mood
     return database
