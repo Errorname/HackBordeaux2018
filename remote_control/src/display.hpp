@@ -1,3 +1,4 @@
+#if 0
 #ifndef display_h
 #define display_h
 
@@ -5,14 +6,15 @@
 #include <string>
 #include <Button.h>
 #include <Adafruit_GFX.h>    // Core graphics library
-//#include <Adafruit_TFTLCD.h> // Hardware-specific library
-#include <Adafruit_SSD1306.h>
-//#include <TouchScreen.h>
+#include <brzo_i2c.h> // I2C
+#include "SSD1306Brzo.h" //I2C for OLED Display
 
 #define PULLUP            true
 #define NO_PULLUP         false
 #define INVERT            false
 #define DEBOUNCE_MS       10
+
+#define LEAP_YEAR(_year) ((_year%4)==0)
 
 struct event_t {
   String id;
@@ -35,3 +37,4 @@ void display_main(void);
 
 
 #endif /* display_h */
+#endif

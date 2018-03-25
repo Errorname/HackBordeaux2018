@@ -1,4 +1,5 @@
 #include "global.hpp"
+#include "display_2.hpp"
 #include "display.hpp"
 #include <ESP8266WiFi.h>
 #include <ESP8266HTTPClient.h>
@@ -72,6 +73,16 @@ int web_update_events(String json)
   return 0;
 }
 
+void web_erase_event(int event_index)
+{
+  eventsTab.erase(eventsTab.begin() + event_index);
+}
+
+int web_get_nb_event(void)
+{
+  return eventsTab.size();
+}
+
 void web_send_interrest(int event_index)
 {
   String trash, data;
@@ -86,7 +97,7 @@ void web_send_interrest(int event_index)
   } else {
     Serial.println("[web.cpp] Failed to send the interrest");
   }
-  eventsTab.erase(eventsTab.begin() + event_index);
+  web_erase_event(event_index);
 }
 
 void web_print_memory(void) {
@@ -111,7 +122,6 @@ void web_main(void)
       if(web_update_events(awnser) == 0) {
         lastCreatedAt = eventsTab.back().createdAt;
       }
-      web_send_interrest(0); // Accept the first event
     }
     webNextTick = millis() + REFRESH_PERIODE;
   }

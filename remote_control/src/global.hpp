@@ -40,5 +40,8 @@ void bootloader_init(void);
 void bootloader_main(void);
 
 // Web
-void web_init(void);
 void web_main(void);
+void web_erase_event(int event_index);
+void web_send_interrest(int event_index);
+int web_get_nb_event(void);
+void web_init(void);
