@@ -39,7 +39,7 @@ exports.default = functions.https.onRequest((request, response) => {
         location: params['location'],
         comment: comment,
         timestamp: time,
-        createdAt: Date.now()
+        createdAt: Math.floor(Date.now() / 1000)
       })
       .then(snapshot => response.json(snapshot))
   } else if (params['mood']) {
