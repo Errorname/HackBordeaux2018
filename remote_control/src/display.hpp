@@ -15,8 +15,13 @@
 #define DEBOUNCE_MS       10
 
 struct event_t {
-  uint8_t ID;
-  String name;
+  String id;
+  String comment;
+  uint32_t createdAt;
+  String location;
+  String owner;
+  uint32_t timestamp;
+  String type;
 };
 
 struct menu_t {

@@ -2,13 +2,13 @@
 
 #define BOOTLOADER_VERSION    "Bootloader v1.0"
 #define FIRMWARE_VERSION      "RemoteControl v1.0"
+#define USER_NAME             "david"
 
 #define WIFI_SSID             "iPhone de David"
 #define WIFI_PWD              "david-pi"
 #define OTA_PWD               "macintosh"
 #define OTA_PORT              8266
-#define SPI_SS_PIN            4
-#define SPI_RST_PIN           5
+#define REFRESH_PERIODE       10000
 
 // Touch screen (SPI)
 #define TOUCH_SC_SPI_SCK      0

@@ -11,6 +11,6 @@ void setup() {
 }
 void loop() {
 	bootloader_main();
-	display_main();
+	//display_main();
 	web_main();
 }

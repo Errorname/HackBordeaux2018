@@ -69,11 +69,11 @@ void display_btn_manage(void)
 
 void display_draw_event(struct event_t event)
 {
-  Serial.println("[display.cpp] Printing event " + String(event.ID) + " : " + event.name);
+  Serial.println("[display.cpp] Printing event " + String(event.id) + " : " + event.owner);
   display.setTextSize(1);
   display.setTextColor(WHITE);
   display.setCursor(0,0);
-  display.println(event.name);
+  display.println(event.id);
   display.fillRect(0, 0, SQUARE_SC_W-1, SQUARE_SC_H-1, WHITE);
   display.setCursor(1,1);
 
@@ -84,8 +84,7 @@ void display_main(void)
 {
   display_btn_manage();
 
-  event.ID = 1;
-  event.name = "BBQ";
+  event.id = 1;
 
   if (millis() > displayNextTick) {
     display_draw_event(event);
