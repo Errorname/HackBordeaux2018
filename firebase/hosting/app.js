@@ -19,13 +19,16 @@ const app = new Vue({
       return window.moment
     },
     nextEvents() {
-      return _.orderBy(this.events, 'timestamp', 'desc')
+      return _.orderBy(this.events, 'timestamp', 'asc')
     },
-    featuredEvents() {
-      return _.orderBy(
-        this.events,
-        o => (o.participants ? o.participants.length : 0),
-        'desc'
+    popularEvents() {
+      return _.take(
+        _.orderBy(
+          this.events,
+          o => (o.participants ? o.participants.length : 0),
+          'desc'
+        ),
+        3
       )
     }
   },
@@ -34,6 +37,11 @@ const app = new Vue({
       if (!event.participants) return 1
 
       return Object.keys(event.participants).length + 1
+    },
+    user(name) {
+      return this.users
+        ? this.users.filter(u => u.name.toLowerCase() === name)[0]
+        : {}
     }
   }
 })

@@ -9,7 +9,7 @@ exports.default = functions.https.onRequest((request, response) => {
       type: request.query.type,
       owner: request.query.user,
       location: request.query.loc,
-      comment: request.query.comm || "",
+      comment: request.query.comm || '',
       timestamp: request.query.time,
       createdAt: Date.now()
     })
